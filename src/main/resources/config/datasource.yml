@@ -1,0 +1,13 @@
+spring:
+  managementdb:
+    platform: mysql
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/management_db?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true
+    username: root
+    password: password!1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  userdb:
+    platform: mysql
+    jdbcUrl: jdbc:mysql://192.168.1.18:3306/user_db?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true
+    username: root
+    password: a78797879!8
+    driver-class-name: com.mysql.cj.jdbc.Driver

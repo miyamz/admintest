@@ -1,0 +1,33 @@
+server:
+    port: 8085
+---
+spring:
+  freemarker:
+    checkTemplateLocation: false
+---
+spring:
+    thymeleaf:
+        prefix: classpath:WEB_INF/
+        check-template-location: true
+        mode: HTML5
+        suffix: .html
+        cache: false
+---
+spring:
+    jpa:
+        properties:
+            hibernate:
+                show_sql: true # 하이버네이트가 실행하는 모든 sql문을 콘솔로 출력
+                format_sql: true # 콘솔에 출력되는 jpa쿼리의 가독성 증가
+                use_sql_comments: true #디버깅이 용이하도록 sql문외 추가적인 정보 출력
+---
+spring:
+    profiles: local
+---
+logging:
+    config: classpath:config/log4j2.yml
+---
+spring:
+    cache:
+        jcache:
+            config: classpath:config/ehcache.xml

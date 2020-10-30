@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="static/header :: commonHead"></head>
+<script th:inline="javascript">
+	$(function() {
+		if ('[[${isReset}]]' == '1') {
+			alert('리셋 성공!! 메일을 확인해 보세요.');
+			location.href = "<c:url value='/login.do' />"
+		}
+		if ('[[${isReset}]]' == '0') {
+			alert('리셋 실패!! 메일확인! 혹은 관리자에게 문의하세요.');
+		}
+		if ('[[${isReset}]]' == '2') {
+			alert('존재하지 않는 계정(메일주소) 입니다. 확인해 주세요.');
+		}
+	});
+
+	function openRegistForm() {
+		window.open("[[@{'/regist.do'}]]" + "",'ManagerRegist','width=600, height=800, menubar=no, status=no, toolbar=no, scrollbars=no');
+	}
+	
+	function passwdCheck() {
+		$("body").loading()
+		if ($("#inputEmail").val().length() <= 0) {
+			alert("기존 비밀번호를 적어주세요.");
+			$("#inputEmail").focus();
+			$("body").loading("stop")
+			return false;
+		}
+		
+		return true;
+	}
+</script>
+<body>
+<div id="layoutAuthentication">
+	<div id="layoutAuthentication_content">
+		<main>
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-5">
+						<div class="card shadow-lg border-0 rounded-lg mt-5">
+							<div class="card-header">
+								<h3 class="text-center font-weight-light my-4">비밀번호 찾기</h3>
+							</div>
+							<div class="card-body">
+								<div class="small mb-3 text-muted">아이디로 사용하신 이메일을 한번 더 입력해 주세요.(받을 수 없는 메일일 경우 관리자에게 문의해주세요.)</div>
+								<form name="managerForgetPWForm" th:action="@{'/resetRequest.do'}" method="post" onsubmit="return passwdCheck();">
+									<div class="form-group">
+										<label class="small mb-1" for="inputEmailAddress">Email</label>
+										<input class="form-control py-4" id="inputEmail" type="email" name="email" aria-describedby="emailHelp" placeholder="등록한 메일주소를 입력하세요." />
+									</div>
+									<div
+										class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+										<a class="small" th:href="@{'/login.do'}">로그인 페이지로 돌아가기</a>
+										<input type="submit" class="btn btn-primary" value="비밀번호 초기화" />
+									</div>
+								</form>
+							</div>
+							<div class="card-footer text-center">
+								<div class="small">
+									<a href="javascript:openRegistForm()">운영 회원 가입</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
+<!-- Footer -->
+<footer th:replace="static/footer :: commonFooter"></footer>
+<!-- End of Footer -->
+</body>
+</html>

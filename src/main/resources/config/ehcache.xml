@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false"
+            maxBytesLocalHeap="300M"> <!-- CacheManager에 의해 관리되는 캐시 메모리를 300M로 제한 -->
+            <!--
+            monitoring="autodetect" dynamicConfig="true">
+            -->
+	<diskStore path="java.io.tmpdir" />
+    <!-- 
+        Cache에 저장할 레퍼런스의 최대값을 100000으로 지정,
+        maxDepthExceededBehavior = "continue" :  초과 된 최대 깊이에 대해 경고하지만 크기가 조정 된 요소를 계속 탐색
+        maxDepthExceededBehavior = "abort" : 순회를 중지하고 부분적으로 계산 된 크기를 즉시 반환
+    -->
+    <sizeOfPolicy maxDepth="100000" maxDepthExceededBehavior="continue"/>
+	<!-- 캐시 정의 -->
+	<!--
+	name : 캐시의 이름이다. @Cacheable("캐시의 이름") 와 일치시켜줘야한다.
+	maxElementsInMemory : 메모리에 보유할 최대 데이터갯수
+	eternal : 한번 캐시하면 영원히 유지할 것인지의 여부
+	timeToIdleSeconds : 데이터가 지정된 시간(초단위)동안 재호출되지 않으면 휘발됨
+	timeToLiveSeconds : 한번 저장된 데이터의 최대 저장 유지 시간(초단위)
+	overflowToDisk : 메모리저장공간이 부족할때 Disk 사용여부
+	-->
+
+	<defaultCache	name="xmlData"
+			eternal="true"
+			timeToIdleSeconds='0'
+			timeToLiveSeconds='0'
+			maxEntriesLocalHeap="30000"
+			maxElementsInMemory="1000"
+			overflowToDisk="false"
+			memoryStoreEvictionPolicy="LRU"/>
+
+	<defaultCache	name="menuData"
+			timeToIdleSeconds='180'
+			timeToLiveSeconds='180'
+			maxEntriesLocalHeap="200"
+			maxElementsInMemory="1000"
+			overflowToDisk="false"
+			memoryStoreEvictionPolicy="LRU"/>
+			
+	<defaultCache	name="menuGroupData"
+			timeToIdleSeconds='180'
+			timeToLiveSeconds='180'
+			maxEntriesLocalHeap="200"
+			maxElementsInMemory="1000"
+			overflowToDisk="false"
+			memoryStoreEvictionPolicy="LRU"/>
+			
+	<defaultCache	name="serverData"
+			timeToIdleSeconds='3600'
+			timeToLiveSeconds='86400'
+			maxEntriesLocalHeap="200"
+			maxElementsInMemory="1000"
+			overflowToDisk="false"
+			memoryStoreEvictionPolicy="LRU"/>
+			
+	<defaultCache	name="codeData"
+			timeToIdleSeconds='1800'
+			timeToLiveSeconds='3600'
+			maxEntriesLocalHeap="200"
+			maxElementsInMemory="1000"
+			overflowToDisk="false"
+			memoryStoreEvictionPolicy="LRU"/>
+</ehcache>

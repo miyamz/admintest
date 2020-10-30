@@ -1,0 +1,50 @@
+Configuration:
+  name: Default
+  status: warn
+
+  Properties:
+    Property:
+      name: log-path
+      value: logs
+  
+  Appenders:
+    Console:
+      name: console_appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%5p](%d{yyyy-MM-dd HH:mm:ss.SSS}) %c - %m%n"
+    #File:
+    #  name: file_appender
+    #  fileName: ${log-path}/adminlog.log
+    #  PatternLayout:
+    #    pattern: "[%5p](%d{yyyy-MM-dd HH:mm:ss.SSS}) %c - %m%n"
+    RollingFile:
+      name: rollingfile_appender
+      fileName: ${log-path}/adminlog.log
+      filePattern: "${log-path}/bak/adminlog.log.%d{yyyyMMdd}"
+      PatternLayout:
+        pattern: "[%5p](%d{yyyy-MM-dd HH:mm:ss.SSS}) %c - %m%n"
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+        SizeBasedTriggeringPolicy:
+          size: 100 MB
+      DefaultRollOverStrategy:
+        max: 30
+  
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+      - ref: console_appender
+      - ref: rollingfile_appender
+      #- ref: file_appender
+    Logger:
+    - name: com.act5admin.App
+      additivity: false
+      level: info
+      AppenderRef:
+      - ref: console_appender
+      - ref: rollingfile_appender
+      #- ref: file_appender
+          
